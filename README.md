@@ -1,19 +1,17 @@
-# Piluleo-HARDWARE
-Nous allons redéfinir le projet :
+Définition du projet :
 
 Nous travaillons en équipe sur un système de pilulier, je m’occupe de la partie du RASPBERRY.
 Le but est de fournir des médicaments et de savoir si la personne les a bien pris.
-le système tournera 1 fois par jour. Le système s’ouvrira automatiquement pour que le patient puisse prendre ses médicaments. Il y a 4 compartiments quotidiennes (Matin, Midi, soir, Avant de se coucher).
+le système tournera 1 fois par jour. Le système s’ouvrira automatiquement pour que le patient puisse prendre ses médicaments. Il y a 4 compartiments pour les doses quotidiennes (Matin, Midi, soir, Avant de se coucher).
  
-Le système comprend 4 éléments différents :
+Le système HARDWARE comprend 4 éléments différents :
 -	3 boutons, ON/OFF – REMOTE – URGENCE
 -	2 LED (rouge et bleu)
 -	Un moteur pas à pas
--	4 électro-aimants permettant 
+-	4 électro-aimants
 
+Voici les différents fichiers pour qu’il puisse fonctionner : 
 
-J’ai besoin de mettre les différents fichiers pour qu’il puisse fonctionner : 
-.
 1.	Fichier Main
 Il va gérer la liaison entre tous les fichiers suivants et la future application.
 
@@ -70,9 +68,11 @@ En maintenant il permet de connecter le pilulier à l’application, la LED clig
 9.	Fichier Alert :
 Il est lié au fichier Bouton_Toggle
 En appuyant ça envoie un mail d’urgence, mais en appuyant plusieurs fois ça n’envoie pas plusieurs mails (éviter le spam). On va mettre en place un timer entre 2 messages.
-.
 
-10.	Fichier RotateStepMotor :
+10. Fichier Electro_aimant :
+Il gère leur fonctionnalité, 2 modes : mode manuel (la personne qui pourra remplir le pilulier), mode automatique (il s'ouvira aux heures données par l'admin)
+
+11.	Fichier RotateStepMotor :
 Il permet la rotation du moteur. Le fichier ressemble à ça :
 
 import RPi.GPIO as GPIO
@@ -133,15 +133,6 @@ class RotateStepMotor:
     def cleanup(self):
         GPIO.cleanup()
 
-# Si tu souhaites tester ce fichier directement, tu peux décommenter ce code :
-# if __name__ == "__main__":
-#     motor = StepperMotorController(config.MOTOR_PINS[0], config.MOTOR_PINS[1], config.MOTOR_PINS[2], config.MOTOR_PINS[3])
-#     try:
-#         motor.move_automatically()
-#     except KeyboardInterrupt:
-#         print("Programme interrompu.")
-#     finally:
-#         motor.cleanup()
 
 Informations supplémentaires :
 
