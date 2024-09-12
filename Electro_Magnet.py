@@ -1,17 +1,20 @@
+# ELECTRO.py
+
 import RPi.GPIO as GPIO
 
-class Electromagnet:
-    def __init__(self, pin):
-        if not isinstance(pin, int):
-            raise ValueError("pin must be an integer.")
-        self.pin = pin
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.OUT)
 
-    def activate(self):
+
+class ElectroMagnetControl:
+    def __init__(self, pin):
+        GPIO.setmode(GPIO.BCM)
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.OUT)
+        self.turn_off()
+
+    def turn_on(self):
         GPIO.output(self.pin, GPIO.HIGH)
 
-    def deactivate(self):
+    def turn_off(self):
         GPIO.output(self.pin, GPIO.LOW)
 
     def cleanup(self):

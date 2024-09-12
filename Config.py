@@ -1,28 +1,36 @@
-# Fichier de configuration des pins GPIO et des emails
-
-# Pins pour le moteur pas à pas
-MOTOR_PINS = [18, 23, 24, 25]
-
-# Pin pour le bouton POWER et sa LED
-POWER_BUTTON_PIN = 16
-POWER_LED_PIN = 12
-
-# Pin pour le bouton CONNECT et sa LED
-CONNECT_BUTTON_PIN = 27
-CONNECTION_LED_PIN = 17
-
-# Pin pour le bouton d'urgence (ALERT)
-ALERT_BUTTON_PIN = 4
-
-# Pins pour les électro-aimants
-ELECTROMAGNET_PINS = {
-    "MATIN": 26,
-    "MIDI": 19,
-    "SOIR": 21,
-    "AVANT_COUCHER": 20
+BUTTON_PINS = {
+    "POWER": 16,        # Exemple de pin pour le bouton POWER
+    "REMOTE": 27,       # Exemple de pin pour le bouton REMOTE
+    "HOLD": 5           # Exemple de pin pour le bouton HOLD
 }
 
-# Configuration des emails
-EMAIL_SENDER = "ton_adresse_gmail@gmail.com"
-EMAIL_PASSWORD = "ton_mot_de_passe"
-EMAIL_RECIPIENT = "g.barrau@it-students.fr"
+# Pins pour les LEDs
+LED_PINS = {
+    "POWER": 12,        # Exemple de pin pour la LED POWER
+    "REMOTE": 17,       # Exemple de pin pour la LED REMOTE
+}
+
+# Pins pour le moteur
+MOTOR_PINS = {
+    "IN1": 18,          # Exemple de pin IN1 pour le moteur
+    "IN2": 23,          # Exemple de pin IN2 pour le moteur
+    "IN3": 24,          # Exemple de pin IN3 pour le moteur
+    "IN4": 25           # Exemple de pin IN4 pour le moteur
+}
+
+# Pins pour les électro-aimants
+ELECTRO_PINS = {
+    "MATIN": 26,        # Exemple de pin pour l'électro-aimant du matin
+    "MIDI": 19,         # Exemple de pin pour l'électro-aimant de midi
+    "SOIR": 21,         # Exemple de pin pour l'électro-aimant du soir
+    "AVANT_COUCHER": 20 # Exemple de pin pour l'électro-aimant avant coucher
+}
+
+# Configuration des emails ou autres paramètres (si nécessaire)
+EMAIL_CONFIG = {
+    "smtp_server": "smtp.example.com",
+    "smtp_port": 587,
+    "sender_email": "sender@example.com",
+    "receiver_email": "receiver@example.com",
+    "password": "password"
+}

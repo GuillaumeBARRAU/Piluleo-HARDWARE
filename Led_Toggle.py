@@ -1,16 +1,26 @@
+# LED_TOGGLE.py
+
 import RPi.GPIO as GPIO
 
-class ToggleLED:
-    def __init__(self, led_pin):
-        self.led_pin = led_pin
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.led_pin, GPIO.OUT)
+class LEDController:
+    def __init__(self, pin):
+        self.pin = pin
+        GPIO.setup(self.pin, GPIO.OUT)
+        self.state = False  # État initial de la LED, éteinte
 
-    def on(self):
-        GPIO.output(self.led_pin, GPIO.HIGH)
+    def turn_on(self):
+        GPIO.output(self.pin, GPIO.HIGH)
+        self.state = True
 
-    def off(self):
-        GPIO.output(self.led_pin, GPIO.LOW)
+    def turn_off(self):
+        GPIO.output(self.pin, GPIO.LOW)
+        self.state = False
+
+    def toggle(self):
+        if self.state:
+            self.turn_off()
+        else:
+            self.turn_on()
 
     def cleanup(self):
-        GPIO.cleanup(self.led_pin)
+        GPIO.cleanup(self.pin)

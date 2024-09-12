@@ -1,25 +1,20 @@
+# Alert.py
+
 import smtplib
 from email.mime.text import MIMEText
-from Bouton_Toggle import PushButton
-import Config
+from Config import EMAIL_CONFIG
 
-class Alert:
-    def __init__(self, button_pin):
-        self.button = PushButton(button_pin, self.send_alert)
+def send_alert_email():
+    msg = MIMEText("Alerte ! Un bouton a été pressé.")
+    msg['Subject'] = 'Alerte'
+    msg['From'] = EMAIL_CONFIG["sender_email"]
+    msg['To'] = EMAIL_CONFIG["receiver_email"]
 
-    def send_alert(self, channel):
-        try:
-            msg = MIMEText("Alerte : Appel d'urgence requis.")
-            msg['Subject'] = "Urgence médicale"
-            msg['From'] = Config.EMAIL_SENDER
-            msg['To'] = Config.EMAIL_RECIPIENT
-
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-                server.login(Config.EMAIL_SENDER, Config.EMAIL_PASSWORD)
-                server.sendmail(Config.EMAIL_SENDER, [Config.EMAIL_RECIPIENT], msg.as_string())
-
-        except Exception as e:
-            print(f"Erreur lors de l'envoi de l'email: {e}")
-
-    def cleanup(self):
-        self.button.cleanup()
+    try:
+        with smtplib.SMTP(EMAIL_CONFIG["smtp_server"], EMAIL_CONFIG["smtp_port"]) as server:
+            server.starttls()
+            server.login(EMAIL_CONFIG["sender_email"], EMAIL_CONFIG["password"])
+            server.send_message(msg)
+            print("Email d'alerte envoyé.")
+    except Exception as e:
+        print(f"Erreur lors de l'envoi de l'email : {e}")

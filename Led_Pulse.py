@@ -1,21 +1,17 @@
 import RPi.GPIO as GPIO
 import time
 
-class ClignLED:
-    def __init__(self, led_pin):
-        self.led_pin = led_pin
+class LEDPulseController:
+    def __init__(self, pin):
+        self.pin = pin
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.led_pin, GPIO.OUT)
+        GPIO.setup(self.pin, GPIO.OUT)
+        self.state = False
 
-    def pulse(self, interval=0.5):
-        while True:
-            GPIO.output(self.led_pin, GPIO.HIGH)
-            time.sleep(interval)
-            GPIO.output(self.led_pin, GPIO.LOW)
-            time.sleep(interval)
-
-    def stop(self):
-        GPIO.output(self.led_pin, GPIO.LOW)
+    def pulse(self):
+        self.state = not self.state
+        GPIO.output(self.pin, GPIO.HIGH if self.state else GPIO.LOW)
+        time.sleep(0.2)  # Durée de clignotement
 
     def cleanup(self):
-        GPIO.cleanup(self.led_pin)
+        GPIO.cleanup(self.pin)
